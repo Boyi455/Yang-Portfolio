@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨忠梅的治愈手账作品集 2026</title>
+    
+    <!-- 引入核心依赖 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- 谷歌治愈系手账字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            font-family: 'Noto Sans SC', sans-serif; 
+            background-color: #fcf6f7; 
+            background-image: radial-gradient(#ffdfe5 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .handwritten { font-family: 'Caveat', 'Noto Sans SC', cursive; }
+        
+        /* 深度优化：高质感粉色田园碎花大卡片 */
+        .floral-card {
+            background: #ffffff;
+            border: 3px dashed #ffc0cb;
+            border-radius: 32px;
+            box-shadow: 0 12px 30px rgba(255, 192, 203, 0.2);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .floral-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 22px 40px rgba(255, 192, 203, 0.35);
+            border-style: solid;
+            border-color: #ff8fa4;
+        }
+
+        /* 拍立得相框风格 */
+        .polaroid-frame {
+            background: white;
+            padding: 16px 16px 40px 16px;
+            border: 1px solid #ffe4e6;
+            box-shadow: 0 8px 16px rgba(255, 192, 203, 0.15);
+            border-radius: 4px;
+            transform: rotate(-1deg);
+            transition: all 0.3s;
+        }
+        .polaroid-frame:hover {
+            transform: rotate(1deg) scale(1.02);
+        }
+
+        /* 手机模型长图容器 */
+        .phone-mockup {
+            border: 10px solid #2d3748;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: #f7fafc;
+        }
+
+        /* 主页大卡片漂浮动效 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-card-1 { animation: float 4s ease-in-out infinite; }
+        .floating-card-2 { animation: float 4.5s ease-in-out infinite 0.5s; }
+        .floating-card-3 { animation: float 5s ease-in-out infinite 0.2s; }
+        .floating-card-4 { animation: float 4.2s ease-in-out infinite 0.7s; }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fcf6f7; }
+        ::-webkit-scrollbar-thumb { background: #ffb6c1; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-gray-700 antialiased text-lg">
+
+<div id="app" class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- 🌸 左侧固定：田园风大名片栏 -->
+    <aside class="w-full lg:w-96 bg-[#fff9fa] border-b lg:border-b-0 lg:border-r-2 border-dashed border-[#ffccd5] lg:fixed lg:h-full p-8 flex flex-col justify-between z-50 shadow-sm">
+        <div class="text-center">
+            
+            <!-- 回到总大厅按钮 -->
+            <button @click="currentTab = 'hub'" class="mb-6 px-6 py-2.5 bg-white hover:bg-[#ffccd5] border-2 border-dashed border-[#ffccd5] text-[#e05275] font-bold rounded-full text-md transition-all flex items-center gap-2 mx-auto shadow-sm">
+                🌸 返回主页总导航
+            </button>
+
+            <!-- 个人自拍照 -->
+            <div class="w-44 h-44 mx-auto rounded-full border-4 border-white shadow-md overflow-hidden bg-pink-100 relative group mb-5">
+                <!-- 👇 【图片】替换为你的自拍照片路径 -->
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400" class="w-full h-full object-cover" alt="杨忠梅的自拍">
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">📸 替换自拍</div>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-[#e05275] tracking-wide">杨忠梅</h1>
+            <p class="text-sm bg-[#7fa99b] text-white px-4 py-1.5 rounded-full inline-block mt-3 font-bold">✨ 语言数据与内容运营</p>
+            
+            <div class="text-sm text-left space-y-3 mt-8 bg-white/90 p-5 rounded-2xl border border-[#ffecf0] shadow-inner">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-phone text-[#ffb6c1] text-lg"></i> <b>电话:</b> 15879791129</div>
+                <div class="flex items-center gap-3"><i class="fa-solid fa-envelope text-[#ffb6c1] text-lg"></i> <b>邮箱:</b> 15879791129@163.com</div>
+                <div class="flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-[#ffb6c1] text-lg"></i> <b>硕士:</b> 上海外国语大学</div>
+                <div class="flex items-center gap-3"><i class="fa-solid fa-university text-[#ffb6c1] text-lg"></i> <b>学士:</b> 南昌大学</div>
+            </div>
+
+            <!-- 左侧快捷跳转 -->
+            <div class="mt-8 space-y-2 hidden lg:block">
+                <p class="text-xs text-gray-400 text-left pl-2 font-bold tracking-wider">快速画布跳转：</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button v-for="tab in menuTabs" :key="tab.id" @click="currentTab = tab.id"
+                            :class="['text-xs p-2.5 rounded-xl font-bold transition-all text-center border', 
+                                     currentTab === tab.id ? 'bg-[#ffccd5] text-[#e05275] border-[#ffccd5]' : 'bg-white hover:bg-pink-50 text-gray-500 border-gray-100']">
+                        {{ tab.shortName }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-xs text-gray-400 mt-6 hidden lg:block">🌸 2026 治愈系手账作品集</div>
+    </aside>
+
+    <!-- 🍃 右侧大画布区域（支持HR畅快向下滑动） -->
+    <main class="flex-1 lg:ml-96 p-6 md:p-12 lg:p-16 flex flex-col justify-start overflow-y-auto">
+        
+        <!-- ==================== HUB: 自动浮现的中央大厅导航 ==================== -->
+        <div v-if="currentTab === 'hub'" class="space-y-12 max-w-5xl animate-fade-in py-6">
+            <div class="text-center md:text-left space-y-3">
+                <span class="text-[#e05275] handwritten text-4xl block">Welcome to My Garden!</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">欢迎翻阅我的<span class="text-[#e05275]">数据与内容运营手账</span></h2>
+                <p class="text-gray-500 text-lg">点击下方精美图章，即可向下畅快翻阅对应板块的完整细节大图：</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+                <!-- 卡片 1 -->
+                <div @click="currentTab = 'about'" class="floral-card p-8 bg-white cursor-pointer group flex flex-col items-center text-center justify-between floating-card-1 min-h-[300px]">
+                    <div class="w-24 h-24 bg-[#fff5f6] group-hover:bg-[#ffccd5] rounded-full flex items-center justify-center text-4xl text-[#e05275] shadow-sm"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="space-y-2 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-[#e05275]">个人名片与核心技能</h3>
+                        <p class="text-sm text-gray-400">上外硕士背景 / 编程、数理逻辑与硬核 AIGC 全栈能力</p>
+                    </div>
+                    <span class="text-sm font-bold text-[#e05275] bg-pink-50 px-4 py-1 rounded-full mt-4 group-hover:bg-[#ffccd5]">点击翻阅 🍃</span>
+                </div>
+                <!-- 卡片 2 -->
+                <div @click="currentTab = 'operations'" class="floral-card p-8 bg-white cursor-pointer group flex flex-col items-center text-center justify-between floating-card-2 min-h-[300px]">
+                    <div class="w-24 h-24 bg-[#fffdf0] group-hover:bg-[#fef2b3] rounded-full flex items-center justify-center text-4xl text-amber-500 shadow-sm"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div class="space-y-2 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-amber-600">美团民宿运营战绩</h3>
+                        <p class="text-sm text-gray-400">冷启动双轨曝光，私域闭环创下 64% 真实高转化奇迹</p>
+                    </div>
+                    <span class="text-sm font-bold text-amber-600 bg-amber-50 px-4 py-1 rounded-full mt-4 group-hover:bg-[#fef2b3]">纵深大图翻阅 📈</span>
+                </div>
+                <!-- 卡片 3 -->
+                <div @click="currentTab = 'strategy'" class="floral-card p-8 bg-white cursor-pointer group flex flex-col items-center text-center justify-between floating-card-3 min-h-[300px]">
+                    <div class="w-24 h-24 bg-[#f5fbf8] group-hover:bg-[#d1f0e2] rounded-full flex items-center justify-center text-4xl text-emerald-600 shadow-sm"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div class="space-y-2 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-emerald-700">跨品类差异化文案</h3>
+                        <p class="text-sm text-gray-400">低价引流与中高端精神造梦的双重爆款方法论拆解</p>
+                    </div>
+                    <span class="text-sm font-bold text-emerald-700 bg-emerald-50 px-4 py-1 rounded-full mt-4 group-hover:bg-[#d1f0e2]">点击翻阅 📝</span>
+                </div>
+                <!-- 卡片 4 -->
+                <div @click="currentTab = 'visual'" class="floral-card p-8 bg-white cursor-pointer group flex flex-col items-center text-center justify-between floating-card-4 min-h-[300px]">
+                    <div class="w-24 h-24 bg-[#f8f5fc] group-hover:bg-[#e6daf7] rounded-full flex items-center justify-center text-4xl text-purple-600 shadow-sm"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="space-y-2 mt-4">
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-purple-700">视觉全景与设计编排</h3>
+                        <p class="text-sm text-gray-400">独立交付项目海报、公众号大厂 H5 及校园社团长图视觉</p>
+                    </div>
+                    <span class="text-sm font-bold text-purple-700 bg-purple-50 px-4 py-1 rounded-full mt-4 group-hover:bg-[#e6daf7]">纵深大图翻阅 🎨</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== PAGE 1: 个人简介 & 技能 ==================== -->
+        <div v-if="currentTab === 'about'" class="space-y-10 max-w-4xl animate-fade-in">
+            <div class="border-b-2 border-dashed border-[#ffccd5] pb-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🌱</span>
+                    <h2 class="text-3xl font-bold text-[#e05275]">个人名片与核心技能</h2>
+                </div>
+                <button @click="currentTab = 'hub'" class="text-sm bg-white border border-[#ffccd5] px-4 py-1.5 rounded-full text-[#e05275] font-bold">返回主页 ↩</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="floral-card p-8 bg-white">
+                    <h3 class="font-bold text-[#e05275] text-2xl mb-5 flex items-center gap-2">🎓 教育年轮</h3>
+                    <div class="space-y-5">
+                        <div class="border-l-4 border-[#7fa99b] pl-4">
+                            <p class="font-bold text-xl">上海外国语大学 <span class="text-sm text-gray-400 font-normal">（硕士）</span></p>
+                            <p class="text-gray-500 text-sm mt-1">语言数据科学与应用专业</p>
+                        </div>
+                        <div class="border-l-4 border-[#7fa99b] pl-4">
+                            <p class="font-bold text-xl">南昌大学 <span class="text-sm text-gray-400 font-normal">（学士）</span></p>
+                            <p class="text-gray-500 text-sm mt-1">德语专业</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="floral-card p-8 bg-white">
+                    <h3 class="font-bold text-[#e05275] text-2xl mb-5 flex items-center gap-2">🛠️ 常用多媒体工具</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <span class="text-sm font-bold bg-pink-50 text-[#e05275] px-3 py-1 rounded-full">办公技能</span>
+                            <p class="text-md mt-2 text-gray-600 font-medium">MS Office 办公套件、飞书文档精通</p>
+                        </div>
+                        <div>
+                            <span class="text-sm font-bold bg-pink-50 text-[#e05275] px-3 py-1 rounded-full">多媒体剪辑与视觉</span>
+                            <p class="text-md mt-2 text-gray-600 font-medium">剪映独立视频剪辑、Canva 商业视觉包装、Tableau / Power BI 大数据可视化建模</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="floral-card p-8 bg-white">
+                <h3 class="font-bold text-[#e05275] text-2xl mb-5 flex items-center gap-2">🚀 硬核数据与 AIGC 翅膀</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-[#fcfbf9] p-5 rounded-2xl border border-amber-100">
+                        <span class="font-bold text-xl text-amber-700 block mb-1">💻 编程与数据清洗</span>
+                        <p class="text-sm text-gray-600">熟练运用 Python 进行自动化文本与数据处理、SQL 结构化查询语言精准提取核心业务漏斗指标。</p>
+                    </div>
+                    <div class="bg-[#f5f8f7] p-5 rounded-2xl border border-emerald-100">
+                        <span class="font-bold text-xl text-emerald-700 block mb-1">🤖 AI 智能体开发</span>
+                        <p class="text-sm text-gray-600">熟练利用 Cherry Studio 等生产力工具进行定制化 Agent 智能体搭建，精通 API 深度调用与跨平台自动化集成。</p>
+                    </div>
+                    <div class="bg-[#f9f5f8] p-5 rounded-2xl border border-purple-100 md:col-span-2">
+                        <span class="font-bold text-xl text-purple-700 block mb-1">✍️ Prompt Engineering (提示词工程)</span>
+                        <p class="text-sm text-gray-600">深刻理解大语言模型底层逻辑，能利用结构化 Prompt 高效逼真地产出符合平台调性、自带点击转化力的图文及引流广告案。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== PAGE 2: 美团民宿运营战绩 (深度放大版) ==================== -->
+        <div v-if="currentTab === 'operations'" class="space-y-14 max-w-5xl animate-fade-in pb-12">
+            <div class="border-b-2 border-dashed border-[#ffccd5] pb-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">📈</span>
+                    <h2 class="text-3xl font-bold text-[#e05275]">美团民宿运营战绩复盘</h2>
+                </div>
+                <button @click="currentTab = 'hub'" class="text-sm bg-white border border-[#ffccd5] px-4 py-1.5 rounded-full text-[#e05275] font-bold">返回主页 ↩</button>
+            </div>
+
+            <!-- 核心数据漏斗 -->
+            <div class="bg-gradient-to-br from-[#fff5f6] to-[#fffdfd] p-10 rounded-3xl border-3 border-dashed border-[#ffccd5] text-center shadow-inner">
+                <h3 class="text-2xl font-bold text-gray-700 mb-3">🎯 用户流量互动、精准引流与高效转化闭环</h3>
+                <div class="text-8xl font-bold text-[#e05275] tracking-tight my-6">64% <span class="text-2xl font-normal text-gray-500">私信到成交转化率</span></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    通过精准挖掘用户出行痛点，利用小红书与微博双重公域蓄水池精准引流。在面对海量用户私信咨询时，开展**私域高情商精细化促单沟通**，在极短周期内成功促成 <span class="text-[#e05275] font-bold text-2xl">11 人</span> 最终下单成交！
+                </p>
+                
+                <!-- 👇 【大图区域 1】私域高转化的4张精细佐证图片（宽敞排版，向下滑动） -->
+                <p class="text-xs text-rose-400 mt-10 mb-4 font-bold tracking-wider">▼ 4张全尺寸私域促单与精细化沟通截图佐证（可纵向无限滑动查阅）</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="polaroid-frame bg-white">
+                        <div class="w-full h-80 bg-pink-50/50 rounded flex items-center justify-center text-sm text-gray-400">
+                            <!-- <img src="转化截图1.jpg" class="w-full h-full object-cover"> -->
+                            【大图】私域高效促单对话截图 1 位置
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3 text-center handwritten font-bold text-md">咨询意向精准捕捉 💮</p>
+                    </div>
+                    <div class="polaroid-frame bg-white">
+                        <div class="w-full h-80 bg-pink-50/50 rounded flex items-center justify-center text-sm text-gray-400">
+                            【大图】私域高效促单对话截图 2 位置
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3 text-center handwritten font-bold text-md">打消客单价顾虑与信任建立 ✨</p>
+                    </div>
+                    <div class="polaroid-frame bg-white">
+                        <div class="w-full h-80 bg-pink-50/50 rounded flex items-center justify-center text-sm text-gray-400">
+                            【大图】私域高效促单对话截图 3 位置
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3 text-center handwritten font-bold text-md">最终锁定下单链路 🛒</p>
+                    </div>
+                    <div class="polaroid-frame bg-white">
+                        <div class="w-full h-80 bg-pink-50/50 rounded flex items-center justify-center text-sm text-gray-400">
+                            【大图】私域高效促单对话截图 4 位置
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3 text-center handwritten font-bold text-md">老客转介绍与长尾裂变 🍃</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 公域发帖双轨冷启动 -->
+            <div class="space-y-10">
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-[#e05275] inline-block bg-white px-6 py-2 rounded-full border border-pink-200 shadow-sm">📢 公域爆款内容发布与数据触达</h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- 小红书 -->
+                    <div class="floral-card p-8 bg-white space-y-4">
+                        <div class="flex justify-between items-center border-b pb-3">
+                            <h4 class="text-2xl font-bold text-red-500 flex items-center gap-2"><i class="fa-brands fa-xiaohongshu"></i> 小红书账号运营</h4>
+                            <span class="text-md bg-red-50 text-red-500 font-bold px-4 py-1 rounded-full">总互动量 100+</span>
+                        </div>
+                        <p class="text-md text-gray-600">美团民宿项目期间，策划并发布了**2篇高吸引力引流广告贴**，成功撬动精准长尾流量。</p>
+                        
+                        <!-- 👇 【大图区域 2】小红书发帖大图，采用逼真的手机长图模型（高 420px） -->
+                        <div class="pt-4 max-w-xs mx-auto">
+                            <p class="text-xs text-center text-gray-400 mb-2">▼ 小红书爆款发帖样式全长图展示</p>
+                            <div class="phone-mockup p-2">
+                                <div class="w-full h-[420px] rounded-[26px] overflow-y-auto bg-gray-100 flex flex-col gap-2 p-1 text-center text-xs text-gray-400">
+                                    <div class="h-60 bg-white rounded-xl flex items-center justify-center">【大图】小红书笔记1长图</div>
+                                    <div class="h-60 bg-white rounded-xl flex items-center justify-center">【大图】小红书笔记2长图</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 微博 -->
+                    <div class="floral-card p-8 bg-white space-y-4">
+                        <div class="flex justify-between items-center border-b pb-3">
+                            <h4 class="text-2xl font-bold text-orange-500 flex items-center gap-2"><i class="fa-brands fa-weibo"></i> 微博矩阵曝光</h4>
+                            <span class="text-md bg-orange-50 text-orange-500 font-bold px-4 py-1 rounded-full">总互动量 330+</span>
+                        </div>
+                        <p class="text-md text-gray-600">利用实时话题裂变发布**2篇深度种草帖**，通过极具共鸣的痛点文案实现大范围社交触达。</p>
+                        
+                        <!-- 👇 【大图区域 3】微博发帖大图，采用逼真的手机长图模型（高 420px） -->
+                        <div class="pt-4 max-w-xs mx-auto">
+                            <p class="text-xs text-center text-gray-400 mb-2">▼ 微博爆款发帖样式全长图展示</p>
+                            <div class="phone-mockup p-2">
+                                <div class="w-full h-[420px] rounded-[26px] overflow-y-auto bg-gray-100 flex flex-col gap-2 p-1 text-center text-xs text-gray-400">
+                                    <div class="h-60 bg-white rounded-xl flex items-center justify-center">【大图】微博博文1图文</div>
+                                    <div class="h-60 bg-white rounded-xl flex items-center justify-center">【大图】微博博文2图文</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== PAGE 3: 跨品类差异化文案 ==================== -->
+        <div v-if="currentTab === 'strategy'" class="space-y-8 max-w-4xl animate-fade-in">
+            <div class="border-b-2 border-dashed border-[#ffccd5] pb-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">📝</span>
+                    <h2 class="text-3xl font-bold text-[#e05275]">跨品类差异化文案</h2>
+                </div>
+                <button @click="currentTab = 'hub'" class="text-sm bg-white border border-[#ffccd5] px-4 py-1.5 rounded-full text-[#e05275] font-bold">返回主页 ↩</button>
+            </div>
+
+            <div class="flex gap-3 p-1.5 bg-pink-100/50 rounded-2xl max-w-lg shadow-inner">
+                <button @click="strategyTab = 'low'" :class="['flex-1 py-3 text-md font-bold rounded-xl transition-all', strategyTab === 'low' ? 'bg-[#e05275] text-white shadow-md' : 'text-gray-500 hover:text-gray-700']">🛒 3.1 低价引流特征品类</button>
+                <button @click="strategyTab = 'high'" :class="['flex-1 py-3 text-md font-bold rounded-xl transition-all', strategyTab === 'high' ? 'bg-[#e05275] text-white shadow-md' : 'text-gray-500 hover:text-gray-700']">🏰 3.2 中高端精神体验品类</button>
+            </div>
+
+            <!-- 3.1 低价引流 -->
+            <div v-if="strategyTab === 'low'" class="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in text-base">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="floral-card p-7 bg-white">
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">一、低价品类产品深度剖析</span>
+                        <ul class="space-y-3 mt-4 text-gray-700">
+                            <li>🎯 <b>1. 核心痛点：</b>暑期青岛出游旺季，常规出行综合成本昂贵，受众具有强烈的消费防御痛点。</li>
+                            <li>🎁 <b>2. 核心卖点：</b>主打“599元全包吃住行玩”与“0元打工换宿”，极低客单价、高性价比、强福利属性。</li>
+                            <li>🎒 <b>3. 目标受众画像：</b>预算严重受限，但同样渴望获得高品质海滨游体验的大学生、职场新人、青年穷游党。</li>
+                        </ul>
+                    </div>
+                    <div class="floral-card p-7 bg-white">
+                        <span class="text-xs font-bold text-[#e05275] bg-pink-50 px-3 py-1 rounded-full">二、文案像素级落地拆解</span>
+                        <div class="space-y-4 mt-4 text-sm leading-relaxed">
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">🔥 <b>1. 引流层（利益直白前置）：</b> 核心文案：<code>【想薅羊毛的进来】</code>、<code>RMB ¥0元</code>、<code>RMB ¥599元</code></div>
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">🔥 <b>2. 福利层（不低质获得感）：</b> 核心文案：<code>价值2000元一晚的330平米海边别墅</code>、<code>价值500元精美冲浪大礼包</code></div>
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">🔥 <b>3. 转化层（特权稀缺感催化）：</b> 核心文案：<code>报名❤️房东体验官❤️</code>、<code>报名❤️房客大玩家❤️</code></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-full min-h-[300px] bg-white rounded-3xl border-3 border-dashed border-pink-200 flex flex-col items-center justify-center p-6 text-center text-gray-400 shadow-sm">
+                    <i class="fa-solid fa-image text-4xl mb-3 text-pink-200"></i>
+                    <span class="text-sm">【图片】<br>青岛低价引流爆款<br>发帖长图与设计稿</span>
+                </div>
+            </div>
+
+            <!-- 3.2 中高端 -->
+            <div v-if="strategyTab === 'high'" class="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in text-base">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="floral-card p-7 bg-white">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">一、高端体验品类属性定位</span>
+                        <ul class="space-y-3 mt-4 text-gray-700">
+                            <li>🏰 <b>1. 产品属性：</b>高客单价、重空间审美感、具备强社交符号象征的“中高端文旅”品类。</li>
+                            <li>👔 <b>2. 目标受众：</b>都市写字楼白领、精致中产、审美打卡青年。追求审美认同与精神松弛感。</li>
+                            <li>🎨 <b>3. 运营策略：</b>彻底脱离价格肉搏战，将海景房包装成摆脱枯燥日常、面向看海浪漫的高审美阶层认同。</li>
+                        </ul>
+                    </div>
+                    <div class="floral-card p-7 bg-white">
+                        <span class="text-xs font-bold text-[#e05275] bg-pink-50 px-3 py-1 rounded-full">二、氛围感通感文案拆解</span>
+                        <div class="space-y-4 mt-4 text-sm leading-relaxed">
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">✨ <b>1. 引流层（诗意造梦共鸣）：</b> 核心文案：<code>“光与路契合，月与海浪漫🤩”</code>、<code>“伴着余晖，喝一瓶冰镇汽水🍹...”</code></div>
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">✨ <b>2. 干货层（标杆景观背书）：</b> 引入《国家地理》最美海岸、孤独图书馆等精神符号；用 <code>人均30元食堂到130元西餐厅</code> 兼顾格调与实用性。</div>
+                            <div class="p-3 bg-pink-50/40 rounded-xl border border-pink-100">✨ <b>3. 转化层（决策链路闭环）：</b> 自然引流至美团民宿App预订“看得见大海的房间”。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-rows-2 gap-6">
+                    <div class="bg-white rounded-2xl border-2 border-dashed border-pink-200 flex items-center justify-center text-xs text-gray-400 p-4 text-center shadow-sm">【图片】高端案例长图 1</div>
+                    <div class="bg-white rounded-2xl border-2 border-dashed border-pink-200 flex items-center justify-center text-xs text-gray-400 p-4 text-center shadow-sm">【图片】高端案例长图 2</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ==================== PAGE 4: 视觉全景与设计编排 (全画廊瀑布大图版) ==================== -->
+        <div v-if="currentTab === 'visual'" class="space-y-12 max-w-5xl animate-fade-in pb-16">
+            <div class="border-b-2 border-dashed border-[#ffccd5] pb-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🎨</span>
+                    <h2 class="text-3xl font-bold text-[#e05275]">视觉全景与设计编排画廊</h2>
+                </div>
+                <button @click="currentTab = 'hub'" class="text-sm bg-white border border-[#ffccd5] px-4 py-1.5 rounded-full text-[#e05275] font-bold">返回主页 ↩</button>
+            </div>
+
+            <p class="text-lg text-gray-500 -mt-6">精通运营逻辑之外，我同样兼具大厂调性的新媒体独立视觉编排与排版输出交付能力。**向下滚动即可查看全尺寸高清大图设计物料：**</p>
+
+            <!-- 纵向透气画廊瀑布流开始 -->
+            <div class="space-y-16">
+                
+                <!-- 4.1 项目海报设计大板块 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🌸</span>
+                        <h3 class="text-2xl font-bold text-gray-800">4.1 独立交付主线引流项目海报</h3>
+                    </div>
+                    <p class="text-md text-gray-500 pl-7">面向C端市场的商业宣发视觉物料，准确捕捉并契合大众传播的审美痛点。</p>
+                    
+                    <!-- 👇 【大图区域 4】海报双列大图展示（单张大图高度达 450px！） -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pl-7 pt-2">
+                        <div class="floral-card p-4 bg-white">
+                            <div class="w-full h-[450px] bg-pink-50/40 rounded-2xl border-2 border-dashed flex items-center justify-center text-gray-400 text-sm">
+                                【巨幕大图】核心宣发海报作品 1 路径位置
+                            </div>
+                            <p class="text-sm font-bold text-center mt-3 text-[#e05275]">商业引流主海报（全尺寸版本）</p>
+                        </div>
+                        <div class="floral-card p-4 bg-white">
+                            <div class="w-full h-[450px] bg-pink-50/40 rounded-2xl border-2 border-dashed flex items-center justify-center text-gray-400 text-sm">
+                                【巨幕大图】核心宣发海报作品 2 路径位置
+                            </div>
+                            <p class="text-sm font-bold text-center mt-3 text-[#e05275]">活动细则宣发配套海报（全尺寸版本）</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.2 公众号H5设计大板块 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🌸</span>
+                        <h3 class="text-2xl font-bold text-gray-800">4.2 微信公众号长图推文与 H5 排版编排</h3>
+                    </div>
+                    <p class="text-md text-gray-500 pl-7">熟练打通长图多图层排版，具备清晰完备的动态长页多媒体信息流传递逻辑。</p>
+                    
+                    <!-- 👇 【大图区域 5】公众号H5长图单列通栏展示（高 500px，大片留白极具呼吸感） -->
+                    <div class="pl-7 max-w-3xl mx-auto pt-2">
+                        <div class="floral-card p-6 bg-white">
+                            <div class="w-full h-[500px] bg-pink-50/30 rounded-2xl border-2 border-dashed overflow-y-auto flex items-center justify-center text-gray-400 text-sm">
+                                【全景长图】微信公众号新媒体推文长图展示区域 (可支持HR在此框内向下滑动看全长)
+                            </div>
+                            <p class="text-sm font-bold text-center mt-4 text-[#e05275]">公众号新媒体 H5 全彩信息流排版长图作品</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.3 社团海报设计大板块 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🌸</span>
+                        <h3 class="text-2xl font-bold text-gray-800">4.3 校园青年社团跨界视觉设计</h3>
+                    </div>
+                    <p class="text-md text-gray-500 pl-7">紧跟年轻群体亚文化视觉风向，熟练切换多种排版设计风，精准触达大学生高敏圈层。</p>
+                    
+                    <!-- 👇 【大图区域 6】社团海报双列大图展示（高 420px） -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pl-7 pt-2">
+                        <div class="floral-card p-4 bg-white">
+                            <div class="w-full h-[420px] bg-pink-50/40 rounded-2xl border-2 border-dashed flex items-center justify-center text-gray-400 text-sm">
+                                【巨幕大图】社团招新/活动视觉海报 1 路径位置
+                            </div>
+                            <p class="text-sm font-bold text-center mt-3 text-purple-600">多元先锋校园风格海报展示</p>
+                        </div>
+                        <div class="floral-card p-4 bg-white">
+                            <div class="w-full h-[420px] bg-pink-50/40 rounded-2xl border-2 border-dashed flex items-center justify-center text-gray-400 text-sm">
+                                【巨幕大图】社团招新/活动视觉海报 2 路径位置
+                            </div>
+                            <p class="text-sm font-bold text-center mt-3 text-purple-600">治愈系/故事感主题社团宣发设计</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 完结底栏 -->
+            <div class="text-center pt-16 border-t border-dashed border-[#ffccd5]">
+                <p class="handwritten text-4xl text-[#e05275] mb-3">Thank you for watching!</p>
+                <p class="text-md text-gray-400">期待加入贵司，用硬核数据与有呼吸感的好视觉，一起捕捉爆款流量。🏡</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- 控制高丝滑交互的 Vue3 代码逻辑 -->
+<script>
+    const { createApp, ref } = Vue;
+    createApp({
+        setup() {
+            const currentTab = ref('hub'); // 核心：默认渲染自动浮现的总导航界面
+            const strategyTab = ref('low'); 
+
+            const menuTabs = ref([
+                { name: '个人名片与核心技能', shortName: '🌱 技能名片', id: 'about' },
+                { name: '美团民宿运营战绩', shortName: '📈 民宿战绩', id: 'operations' },
+                { name: '跨品类差异化文案', shortName: '📝 差异文案', id: 'strategy' },
+                { name: '视觉全景与设计编排', shortName: '🎨 视觉全景', id: 'visual' }
+            ]);
+
+            return { currentTab, strategyTab, menuTabs };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
